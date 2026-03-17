@@ -1,14 +1,20 @@
 import express from "express";
-import dotenv from "dotenv"
-import { connectDB } from "./connect.js"
-import User from "./models/User.js"
+import dotenv from "dotenv";
+import accountRoutes from "./routes/accountRoutes.js";
+import { connectDB } from "./connect.js";
+import User from "./models/User.js";
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
 
+//connnect to mongoDB 
 connectDB();
+app.use(express.json());
+app.use("/account", accountRoutes);
 
+
+/*
 app.get("/api/user", async (req,res) => {
    // res.status(200).send("Hello World");
    try {
@@ -18,7 +24,7 @@ app.get("/api/user", async (req,res) => {
         console.error("Error", err);
         res.status(500).json({message:"Internal Server Error"});
    }
-});
+});*/
 
 app.listen(5001, () => {
     console.log("Server started on PORT: 5001");
