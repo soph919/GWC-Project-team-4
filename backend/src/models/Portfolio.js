@@ -4,14 +4,15 @@ import mongoose from "mongoose";
 const portfolioSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required:true,
+        ref:'User'
     },
     portfolio_name: {
         type:String,
         required:true
     },
     template_type: {
-        string:String,
+        type:String,
         required:true
     },
     visibility: {

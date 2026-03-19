@@ -4,7 +4,7 @@ import projectSchema from "./Project.js";
 const contentSchema = new mongoose.Schema({
      portfolio_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'userSchema',
+        ref: 'Porfolio',
         required: true
     },
     about: {

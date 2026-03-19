@@ -1,6 +1,6 @@
-import portfolioRoutes from "./routes/PortfolioRoute.js";
 import express from "express";
 import dotenv from "dotenv";
+import portfolioRoutes from "./routes/portfolioRoute.js";
 import accountRoutes from "./routes/accountRoutes.js";
 import { connectDB } from "./connect.js";
 import User from "./models/User.js";
