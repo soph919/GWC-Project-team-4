@@ -1,3 +1,4 @@
+import portfolioRoutes from "./routes/PortfolioRoute.js";
 import express from "express";
 import dotenv from "dotenv";
 import accountRoutes from "./routes/accountRoutes.js";
@@ -13,6 +14,7 @@ connectDB();
 app.use(express.json());
 
 app.use("/account", accountRoutes);
+app.use("/portfolio", portfolioRoutes);
 
 
 /*
