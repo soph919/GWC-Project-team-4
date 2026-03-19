@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 5001;
 //connnect to mongoDB 
 connectDB();
 app.use(express.json());
+
 app.use("/account", accountRoutes);
 
 

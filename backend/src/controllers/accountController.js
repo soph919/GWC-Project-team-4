@@ -6,7 +6,12 @@ export async function register (req, res) {
     try {
         const {firstname, lastname, email, password} = req.body;
 
-        //hash password before putting in database
+        //Comfirms data
+        if(!firstname || !lastname || !email || !password) {
+            return res.status(400).json({message:"All fields required"});
+        }
+
+        //Hash password 
         const hashPassword = await bcrypt.hash(password, 10);
 
         const newUser = new User({
@@ -17,13 +22,22 @@ export async function register (req, res) {
         });
 
         const savedUser = await newUser.save();
-        res.status(201).json(savedUser);
+
+        if(!savedUser) {
+            return res.status(400).json({message:"User not created"})
+        }
+
+        res.status(201).json({
+            firstname:savedUser.firstname,
+            lastname:savedUser.lastname,
+            email: savedUser.email
+        });
 
     } catch (error) {
 
         //For duplicate emails 
         if(error.code == 11000) {
-            res.status(409).json({message:"This email is already used"})
+            res.status(409).json({message:"This email is already used"});
 
         } else {
 
@@ -39,20 +53,18 @@ export async function login (req, res) {
     try {
         const { email, password } = req.body
         
-        //Find user with email from req
+        //Find user
         const user = await User.findOne().where("email").equals(email);
         
         const isValid = await bcrypt.compare(password, user?.password || "" );
 
-        //If user does not exists or passwords don't match, send error
+        //Send error if user does not exist or incorrect password
         if(!user || !isValid) {
-            res.status(400).json({message:"Invalid email or password"});
-        
-        } else {
-            res.status(200).json({message:"Login successful"});
-
+            return res.status(400).json({message:"Invalid email or password"});
         }
-    
+        
+        res.status(200).json({message:"Login successful"});
+
     } catch (error) {
         console.error("Error in login:", error)
         res.status(500).json({message:"Internal Server Error"});
