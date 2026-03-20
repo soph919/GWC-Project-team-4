@@ -18,6 +18,14 @@ const portfolioSchema = new mongoose.Schema({
     visibility: {
         type:Boolean,
         default:true
+    }, 
+    image: {
+        public_id: {
+            type:String,
+        }, 
+        secure_url: {
+            type:String
+        }
     }
 });
 

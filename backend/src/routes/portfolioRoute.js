@@ -4,11 +4,12 @@ import {
     deletePortfolio, getUserPortfolios, getAllPortfolios,
     addProject, updateProject, deleteProject, getPortfolioProjects
 } from "../controllers/portfolioController.js";
+import upload from "../lib/multer.js"
 
 const router = express.Router();
 
 //Portfolio routes
-router.post("/user/:userId", addPortfolio);
+router.post("/user/:userId", upload.single('image'), addPortfolio);
 router.put("/:portfolioId", updatePortfolio);
 router.put("/:portfolioId/content", updatePortfolioContent);
 router.delete("/:portfolioId", deletePortfolio);

@@ -1,17 +1,37 @@
 import Portfolio from "../models/Portfolio.js";
 import Content from "../models/Portfolio_Content.js";
 import Project from "../models/Project.js";
+import cloudinary  from "../lib/cloudinary.js"
+import upload from "../lib/multer.js"
 
 //Add portfolio
 export async function addPortfolio(req, res) {
     try {
-        const { portfolio_name, template_type } = req.body;
+        const { portfolio_name, template_type, visibility } = req.body;
         const user_id = req.params.userId;
-
-        const portfolio = new Portfolio({ user_id, portfolio_name, template_type });
-        const savedPortfolio = await portfolio.save();
-
+        const image = req.file.buffer
+    
+        //Upload image to cloudinary
+        const uploadImage = await new Promise((resolve, reject) => {
+            cloudinary.uploader.upload_stream(
+                {
+                    
+                folder:"portfolio-images",
+                resource_type:"image"
+                },
+                (error, results) => {
+                    if(error) {
+                        reject(error);
+                    }
+                    resolve(results);
+                },
+            ).end(image)
+        });
+        
+        const portfolio = new Portfolio({user_id, portfolio_name, template_type, visibility, image:{ public_id: uploadImage.public_id, secure_url:uploadImage.secure_url}})
+        const savedPortfolio = await portfolio.save()
         res.status(201).json(savedPortfolio);
+      
     } catch (error) {
         console.error("Error in addPortfolio:", error);
         res.status(500).json({ message: "Internal Server Error" });
