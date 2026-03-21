@@ -11,10 +11,13 @@ const contentSchema = new mongoose.Schema({
         type:String,
         required: true
     },
+    projects: [projectSchema],
+    
     contact: {
         type:String,
         required:true
     }
+
 })
 
 const Content = mongoose.model("Content", contentSchema);

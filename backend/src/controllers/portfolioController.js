@@ -134,7 +134,7 @@ export async function updatePortfolio(req, res) {
         }
         
 
-       //Update portfolio
+       //Update 
         const updatedPortfolio = await Portfolio.findByIdAndUpdate(
             req.params.portfolioId,
             {
@@ -156,6 +156,27 @@ export async function updatePortfolio(req, res) {
     }
 }
 
+//Add Portfolio Content
+export async function addPortfolioContent(req, res) {
+    try{ 
+        const {about, contact} = req.body
+        const portfolio_id = req.params.portfolioId
+
+        const portfolioContent = await Content.create({
+            portfolio_id,
+            about,
+            contact
+        });
+
+        if(portfolioContent) return res.status(201).json(portfolioContent)
+
+    } catch (error) {
+         console.error("Error in getAllPortfolios:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+       
+}
+
 //Update portfolio content (about, contact, etc.)
 export async function updatePortfolioContent(req, res) {
     try {
@@ -174,10 +195,20 @@ export async function updatePortfolioContent(req, res) {
 //Delete portfolio
 export async function deletePortfolio(req, res) {
     try {
-        const portfolio = await Portfolio.findByIdAndDelete(req.params.portfolioId);
+        //Delete portfolio from database
+        const portfolio = await Portfolio.findOneAndDelete({_id:req.params.portfolioId});
         if (!portfolio) return res.status(404).json({ message: "Portfolio not found" });
 
-        res.status(200).json({ message: "Portfolio deleted" });
+        //Delete content from database
+        const portfolioContent = await Content.findOneAndDelete({portfolio_id:req.params.portfolioId})
+        if (!portfolioContent) return res.status(404).json({ message: "Portfolio not found" });
+
+        //Delete portfolio image
+        if(portfolio.image.public_id) {
+            await cloudinary.uploader.destroy(portfolio.image.public_id, {invalidate:true})
+        }
+        
+        return res.status(200).json({ message: "Portfolio deleted" });
     } catch (error) {
         console.error("Error in deletePortfolio:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -209,10 +240,20 @@ export async function getAllPortfolios(req, res) {
 //Add project
 export async function addProject(req, res) {
     try {
-        const { description, link } = req.body;
-        const project = new Project({ description, link });
-        const savedProject = await project.save();
-        res.status(201).json(savedProject);
+        const { project_name, description, link } = req.body;
+        const portfolioContent_id = req.params.portfolioContentId
+
+        const portfolioContent = await Content.findOne().where({_id: portfolioContent_id})
+        if(!portfolioContent) return res.json({message:"Could not find portfolio content"})
+       
+        //Add new project
+        portfolioContent.projects.push({
+            project_name, description, link
+        })
+
+        portfolioContent.save()
+        return res.json(portfolioContent)
+
     } catch (error) {
         console.error("Error in addProject:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -222,13 +263,24 @@ export async function addProject(req, res) {
 //Update project
 export async function updateProject(req, res) {
     try {
-        const project = await Project.findByIdAndUpdate(
-            req.params.projectId,
-            req.body,
-            { new: true }
-        );
-        if (!project) return res.status(404).json({ message: "Project not found" });
-        res.status(200).json(project);
+        const {project_name, description, link} = req.body
+        const projectContentId = req.params.projectContentId
+        const projectId = req.params.projectId
+       
+        //Find the project content
+        const projectContent = await Content.findOne().where({_id:projectContentId})
+
+        //Get specific project
+        const project = await projectContent.projects.id(projectId)
+
+       //Update fields
+        if(project_name) project.project_name = project_name
+        if(description) project.description = description
+        if(link) project.link = link
+        projectContent.save()
+        
+        return res.status(200).json(projectContent)
+         
     } catch (error) {
         console.error("Error in updateProject:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -238,9 +290,15 @@ export async function updateProject(req, res) {
 //Delete project
 export async function deleteProject(req, res) {
     try {
-        const project = await Project.findByIdAndDelete(req.params.projectId);
-        if (!project) return res.status(404).json({ message: "Project not found" });
-        res.status(200).json({ message: "Project deleted" });
+        const projectContentId = req.params.projectContentId
+        const projectId = req.params.projectId
+
+        const projectContent = await Content.findOne().where({_id:projectContentId})
+        await projectContent.projects.pull(projectId)//Delte project
+        projectContent.save()
+
+        return res.status(200).json({message:"Project deleted"})
+       
     } catch (error) {
         console.error("Error in deleteProject:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -250,7 +308,8 @@ export async function deleteProject(req, res) {
 //Get portfolio projects
 export async function getPortfolioProjects(req, res) {
     try {
-        const projects = await Project.find({ portfolio_id: req.params.portfolioId });
+        const portfolioContent = await Content.findOne({ _id: req.params.portfolioContentId });
+        const projects = portfolioContent.projects
         res.status(200).json(projects);
     } catch (error) {
         console.error("Error in getPortfolioProjects:", error);
