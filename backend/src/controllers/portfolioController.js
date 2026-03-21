@@ -2,35 +2,68 @@ import Portfolio from "../models/Portfolio.js";
 import Content from "../models/Portfolio_Content.js";
 import Project from "../models/Project.js";
 import cloudinary  from "../lib/cloudinary.js"
-import upload from "../lib/multer.js"
 
 //Add portfolio
 export async function addPortfolio(req, res) {
     try {
         const { portfolio_name, template_type, visibility } = req.body;
         const user_id = req.params.userId;
-        const image = req.file.buffer
+        let image, uploadImage, newPortfolio = null;
     
-        //Upload image to cloudinary
-        const uploadImage = await new Promise((resolve, reject) => {
-            cloudinary.uploader.upload_stream(
-                {
-                    
-                folder:"portfolio-images",
-                resource_type:"image"
-                },
-                (error, results) => {
-                    if(error) {
-                        reject(error);
-                    }
-                    resolve(results);
-                },
-            ).end(image)
-        });
+        //Image given
+        if(req.file) {
+
+            image = req.file.buffer
+
+            //Upload image to cloudinary
+            uploadImage = await new Promise((resolve, reject) => {
+                cloudinary.uploader.upload_stream(
+                    {
+                        folder:"portfolio-images",
+                        resource_type:"image"
+                    },
+                    (error, results) => {
+                        if(error) {
+                            reject(error);
+                        }
+                        resolve(results);
+                    },
+                ).end(image)
+            });
+
+            //portfolio with image
+            newPortfolio = await Portfolio.create({
+            user_id,
+            portfolio_name,
+            template_type,
+            visibility,
+            image:
+            {
+                public_id: uploadImage.public_id, 
+                secure_url:uploadImage.secure_url
+            }
+            });
+
+        } else {
+
+            //portfolio without image
+            newPortfolio = await Portfolio.create({
+            user_id,
+            portfolio_name,
+            template_type,
+            visibility,
+             image:
+            {
+                public_id: null, 
+                secure_url: null
+            }
+            
+            });
+        }
         
-        const portfolio = new Portfolio({user_id, portfolio_name, template_type, visibility, image:{ public_id: uploadImage.public_id, secure_url:uploadImage.secure_url}})
-        const savedPortfolio = await portfolio.save()
-        res.status(201).json(savedPortfolio);
+        if(newPortfolio) {
+            return res.status(201).json(newPortfolio);
+        } 
       
     } catch (error) {
         console.error("Error in addPortfolio:", error);
@@ -41,14 +74,82 @@ export async function addPortfolio(req, res) {
 //Update portfolio (name, etc.)
 export async function updatePortfolio(req, res) {
     try {
-        const portfolio = await Portfolio.findByIdAndUpdate(
-            req.params.portfolioId,
-            req.body,
-            { new: true }
-        );
+
+        const {portfolio_name, template_type, visibility} = req.body
+        const portfolioId = req.params.portfolioId
+        const portfolio = await Portfolio.findOne().where({_id: portfolioId})
+
         if (!portfolio) return res.status(404).json({ message: "Portfolio not found" });
 
-        res.status(200).json(portfolio);
+        const image_publicId = portfolio.image.public_id
+        
+        let uploadImage = null
+
+        //If there is a new image
+        if(req.file) {
+
+            const image = req.file.buffer
+
+            //No previous image uploaded
+            if(image_publicId == "" || image_publicId == null) {
+
+                uploadImage = await new Promise((resolve, reject) => {
+                    cloudinary.uploader.upload_stream(
+                        {
+                            folder:"portfolio-images",
+                            resource_type:"image"
+                        },
+                        (error, results) => {
+                            if(error) {
+                                reject(error);
+                            }
+                            resolve(results);
+                        },
+                    ).end(image)
+                });
+
+            //Replace previous image
+            } else {
+
+                await cloudinary.uploader.destroy(image_publicId, {invalidate:true})
+
+                uploadImage = await new Promise((resolve, reject) => {
+                    cloudinary.uploader.upload_stream(
+                        {
+                            public_id:image_publicId,
+                            overwrite:true,
+                            folder:"portfolio-images",
+                            resource_type:"image",
+                            invalidate:true
+                        },
+                        (error, results) => {
+                            if(error) {
+                                reject(error);
+                            }
+                            resolve(results);
+                        },
+                    ).end(image)
+                });
+            }
+        }
+        
+
+       //Update portfolio
+        const updatedPortfolio = await Portfolio.findByIdAndUpdate(
+            req.params.portfolioId,
+            {
+                portfolio_name,
+                template_type,
+                visibility,
+                "image.public_id":uploadImage?.public_id,
+                "image.secure_url":uploadImage?.secure_url,
+            },
+            { returnDocument: 'after' }
+        );
+
+        if (!updatePortfolio) return res.status(404).json({ message: "Portfolio not found" });
+        res.status(200).json(updatedPortfolio);
+
     } catch (error) {
         console.error("Error in updatePortfolio:", error);
         res.status(500).json({ message: "Internal Server Error" });
