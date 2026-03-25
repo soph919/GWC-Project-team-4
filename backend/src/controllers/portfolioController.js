@@ -1,7 +1,8 @@
 import Portfolio from "../models/Portfolio.js";
 import Content from "../models/Portfolio_Content.js";
 import Project from "../models/Project.js";
-import cloudinary  from "../lib/cloudinary.js"
+import cloudinary from "../lib/cloudinary.js";
+import mongoose from "mongoose";
 
 //Add portfolio
 export async function addPortfolio(req, res) {
@@ -218,7 +219,7 @@ export async function deletePortfolio(req, res) {
 //Get a user's portfolios
 export async function getUserPortfolios(req, res) {
     try {
-        const portfolios = await Portfolio.find({ user_id: req.params.userId });
+        const portfolios = await Portfolio.find({ user_id: new Portfolio.base.Types.ObjectId(req.params.userId) });
         res.status(200).json(portfolios);
     } catch (error) {
         console.error("Error in getUserPortfolios:", error);
