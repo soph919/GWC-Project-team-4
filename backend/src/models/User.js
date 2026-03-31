@@ -19,6 +19,12 @@ const userSchema = new mongoose.Schema({
         type:String,
         required: true
     },
+    skills: {
+        type: [String],
+    },
+    programs: {
+        type:[String],
+    },
 });
 
 const User = mongoose.model("User", userSchema, "users");

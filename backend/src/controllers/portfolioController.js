@@ -317,3 +317,29 @@ export async function getPortfolioProjects(req, res) {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+//Search portfolios by name
+export async function searchPortfolios(req, res) {
+    try {
+        const { name } = req.query;
+
+        const portfolios = await Portfolio.find({ visibility: true })
+            .populate({ 
+                path: "user_id", 
+                match: { 
+                    $or: [
+                        { firstname: { $regex: name, $options: "i" } },
+                        { lastname: { $regex: name, $options: "i" } }
+                    ] 
+                }, 
+                select: "firstname lastname" 
+            });
+
+        const filtered = portfolios.filter(p => p.user_id !== null);
+        res.status(200).json(filtered);
+
+    } catch (error) {
+        console.error("Error in searchPortfolios:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
