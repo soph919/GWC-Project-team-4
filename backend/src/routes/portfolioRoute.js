@@ -12,6 +12,10 @@ import {
   getPortfolioProjects,
   addPortfolioContent,
   searchPortfolios,
+  addSkill,
+  deleteSkill,
+  addProgram,
+  deleteProgram,
 } from "../controllers/portfolioController.js";
 import upload from "../lib/multer.js";
 
@@ -26,6 +30,10 @@ router.delete("/:portfolioId", deletePortfolio);
 router.get("/user/:userId", getUserPortfolios);
 router.get("/discover", getAllPortfolios);
 router.get("/search", searchPortfolios);
+router.post("/:portfolioId/skills", addSkill);
+router.delete("/:portfolioId/skills", deleteSkill);
+router.post("/:portfolioId/programs", addProgram);
+router.delete("/:portfolioId/programs", deleteProgram);
 
 //Project routes
 router.post(
