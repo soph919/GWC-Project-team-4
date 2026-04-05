@@ -1,6 +1,8 @@
 import React from 'react';
 import { useEffect, useState } from "react";
 
+import Navigation from '../components/Navigation';
+
 const Discover = () => {
 
     const [portfolios, setPortfolios] = useState([]);
@@ -15,6 +17,7 @@ const Discover = () => {
 
   return (
     <div>
+        <Navigation />
        <form className='search-bar'>
         <input
         type='text'

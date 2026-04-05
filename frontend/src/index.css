@@ -5,6 +5,7 @@ body {
     font-style: normal;
     background-color: #121052;
     color: #FFFFFF;
+    margin: 0px
     
 }
 
@@ -17,9 +18,19 @@ body {
     color: #121052;
 }
 
+.nav {
+    display: flex;
+    justify-content: space-between;
+
+}
+.nav-left, .nav-right {
+    display: flex;
+    flex-direction: row;
+    gap: 55px;
+}
+
 nav ul {
-  display: flex;
-    list-style: none;
+list-style: none;
   align-items: center;
   padding: 5px 10px;
   margin: 0;
@@ -200,6 +211,6 @@ nav ul {
 
 .search-input {
     border-radius: 9999px;
-    width: 100%;
+    width: 90%;
     padding: 10px;
 }
