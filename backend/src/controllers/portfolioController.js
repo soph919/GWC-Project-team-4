@@ -317,3 +317,97 @@ export async function getPortfolioProjects(req, res) {
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
+
+//Search portfolios by name
+export async function searchPortfolios(req, res) {
+    try {
+        const { name } = req.query;
+
+        const portfolios = await Portfolio.find({ visibility: true })
+            .populate({ 
+                path: "user_id", 
+                match: { 
+                    $or: [
+                        { firstname: { $regex: name, $options: "i" } },
+                        { lastname: { $regex: name, $options: "i" } }
+                    ] 
+                }, 
+                select: "firstname lastname" 
+            });
+
+        const filtered = portfolios.filter(p => p.user_id !== null);
+        res.status(200).json(filtered);
+
+    } catch (error) {
+        console.error("Error in searchPortfolios:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Add skill
+export async function addSkill(req, res) {
+    try {
+        const { skill } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $push: { skills: skill } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in addSkill:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Delete skill
+export async function deleteSkill(req, res) {
+    try {
+        const { skill } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $pull: { skills: skill } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in deleteSkill:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Add program
+export async function addProgram(req, res) {
+    try {
+        const { program } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $push: { programs: program } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in addProgram:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Delete program
+export async function deleteProgram(req, res) {
+    try {
+        const { program } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $pull: { programs: program } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in deleteProgram:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
