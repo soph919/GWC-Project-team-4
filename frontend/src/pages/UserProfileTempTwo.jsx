@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react'
+
+import Navigation from '../components/Navigation';
 /*
 const [User, setUser] = useState(null);
 
@@ -9,6 +11,7 @@ useEffect(() => {
 const UserProfileTempTwo = () => {
   return (
     <div>
+
         <div className='user-title'>
             <h1><b>Jane Doe</b></h1>
             <h2>Programmer - Digital Artist</h2>
@@ -19,7 +22,9 @@ const UserProfileTempTwo = () => {
             <img src=",,," />
         </div>
 
+        <h3 className='user-header-temp-2'>Past Experience</h3>
         <div className='past-experience'>
+    
             <div className="info-block">
             <h1 className="info-title">Title</h1>
             <h2 className="info-company">Company Name</h2>
@@ -38,6 +43,7 @@ const UserProfileTempTwo = () => {
             </div>
         </div>
 
+        <h3 className='user-header-temp-2'>Technical Skills</h3>
         <div className='technical-skills'>
              <div class="info-block">
             <h1 class="info-title">Title</h1>
@@ -46,7 +52,7 @@ const UserProfileTempTwo = () => {
                 <li>of</li>
                 <li>items</li>
             </ul>
-        </div>
+            </div>
           <div class="info-block">
             <h1 class="info-title">Title</h1>
             <ul class="info-list">
@@ -55,7 +61,10 @@ const UserProfileTempTwo = () => {
                 <li>items</li>
             </ul>
         </div>
+        </div>
 
+
+        <h3 className='user-header-temp-2'>Projects</h3>
         <div className='project-list'>
             
             <div class="preview-project">
@@ -124,7 +133,7 @@ const UserProfileTempTwo = () => {
         </div>
         </div>
 
-    </div>
+    
   </div>
   )
 };

@@ -8,8 +8,8 @@ const Navigation = () => {
                 <div class="nav-left">
                 <li>Image</li>
                 <li>Home</li>
-                <li>Explore</li>
-                <li>Portfolio</li>
+                <li><a href="/discover">Discover</a></li>
+                <li><a href="/user">Portfolio</a></li>
                 </div>
                 <div class="nav-right">
                 <li>Help</li>

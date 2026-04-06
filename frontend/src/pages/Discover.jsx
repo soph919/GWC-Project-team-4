@@ -2,6 +2,7 @@ import React from 'react';
 import { useEffect, useState } from "react";
 
 import Navigation from '../components/Navigation';
+import Footer from '../components/Footer';
 
 const Discover = () => {
 
@@ -17,7 +18,7 @@ const Discover = () => {
 
   return (
     <div>
-        <Navigation />
+    
        <form className='search-bar'>
         <input
         type='text'
@@ -103,7 +104,7 @@ const Discover = () => {
             )
         )}
         
-     
+
         </div>
 
     
