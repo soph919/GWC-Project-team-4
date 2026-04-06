@@ -17,7 +17,7 @@ const App = () => {
       <Routes>
         <Route path="/discover" element={<Discover />} />
         <Route path="/user" element={<UserProfileTempTwo />} />
-        <Route path="user-project" element={<UserProjectTempTwo />} />
+        <Route path="/user-project" element={<UserProjectTempTwo />} />
       </Routes>
 
     <Footer/>
