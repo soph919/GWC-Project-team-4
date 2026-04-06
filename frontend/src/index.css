@@ -286,13 +286,51 @@ nav a:hover {
     margin: 50px 150px 50px 150px;
 }
 
+.project-list a {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease-in-out;
+}
+
+.project-list a:hover {
+    transform: scale(1.1);
+}
 
 /*Project Details*/
+.project-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-header h3 a {
+    text-decoration: none;
+    color: inherit;
+    background-color: #B3ACFA;
+    padding: 10px 20px 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.project-header h3 a:hover {
+    background-color: #8b85d2;
+    color: #cec9c9;
+}
+
 /* Folder */
 
-position: absolute;
-width: 1280px;
-height: 2455px;
-left: 0px;
-top: 334px;
+.tab ul {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 20px;
+}
+.tab li {
+    text-decoration: none;
+    list-style: none;
+    background-color: #AC99FF;
+    color: #FFFFFF;
+    font-size: 32px;
+    border-radius: 12px 12px 0px 0px;
+    padding: 10px 50px 10px 50px;
+}
+
 

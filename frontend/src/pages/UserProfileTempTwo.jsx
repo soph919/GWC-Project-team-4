@@ -45,17 +45,17 @@ const UserProfileTempTwo = () => {
 
         <h3 className='user-header-temp-2'>Technical Skills</h3>
         <div className='technical-skills'>
-             <div class="info-block">
-            <h1 class="info-title">Title</h1>
-            <ul class="info-list">
+             <div className="info-block">
+            <h1 className="info-title">Title</h1>
+            <ul className="info-list">
                 <li>List</li>
                 <li>of</li>
                 <li>items</li>
             </ul>
             </div>
-          <div class="info-block">
-            <h1 class="info-title">Title</h1>
-            <ul class="info-list">
+          <div className="info-block">
+            <h1 className="info-title">Title</h1>
+            <ul className="info-list">
                 <li>List</li>
                 <li>of</li>
                 <li>items</li>
@@ -67,15 +67,16 @@ const UserProfileTempTwo = () => {
         <h3 className='user-header-temp-2'>Projects</h3>
         <div className='project-list'>
             
-            <div class="preview-project">
+            <a href="/user-project">
+            <div className="preview-project">
             <img src="images/blank_avatar.png" />
-            <div class="project-info">
+            <div className="project-info">
                 <h3>Title</h3>
-                <p class="project-description">
+                <p className="project-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
             </div>
-            <div class="materials">
+            <div className="materials">
                 <ul>
                     <li>HTML</li>
                     <li>CSS</li>
@@ -83,15 +84,16 @@ const UserProfileTempTwo = () => {
                 </ul>
             </div>
         </div>
-        <div class="preview-project">
+        </a>
+        <div className="preview-project">
             <img src="images/blank_avatar.png" />
-            <div class="project-info">
+            <div className="project-info">
                 <h3>Title</h3>
-                <p class="project-description">
+                <p className="project-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
             </div>
-            <div class="materials">
+            <div className="materials">
                 <ul>
                     <li>HTML</li>
                     <li>CSS</li>
@@ -99,31 +101,31 @@ const UserProfileTempTwo = () => {
                 </ul>
             </div>
         </div>
-        <div class="preview-project">
+        <div className="preview-project"> 
             <img src="images/blank_avatar.png" />
-            <div class="project-info">
+            <div className="project-info">
                 <h3>Title</h3>
-                <p class="project-description">
+                <p className="project-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
             </div>
-            <div class="materials">
+            <div className="materials">
                 <ul>
                     <li>HTML</li>
                     <li>CSS</li>
                     <li>JavaScript</li>
                 </ul>
-            </div>
+            </div> 
         </div>
-        <div class="preview-project">
+        <div className="preview-project">
             <img src="images/blank_avatar.png" />
-            <div class="project-info">
+            <div className="project-info">
                 <h3>Title</h3>
-                <p class="project-description">
+                <p className="project-description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                 </p>
             </div>
-            <div class="materials">
+            <div className="materials">
                 <ul>
                     <li>HTML</li>
                     <li>CSS</li>
