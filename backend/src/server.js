@@ -5,9 +5,15 @@ import accountRoutes from "./routes/accountRoutes.js";
 import { connectDB } from "./connect.js";
 import User from "./models/User.js";
 dotenv.config();
+import cors from "cors"
 
 const app = express();
+
 const PORT = process.env.PORT || 5001;
+
+app.use(cors({
+  origin: 'http://localhost:5174'
+}));
 
 //connnect to mongoDB 
 connectDB();

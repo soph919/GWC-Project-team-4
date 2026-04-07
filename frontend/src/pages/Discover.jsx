@@ -9,12 +9,20 @@ const Discover = () => {
     const [portfolios, setPortfolios] = useState([]);
 
     useEffect(() => {
-        fetch("http://localhost:5001/portfolio/user/69b99ca38960d8a32678a2bf")
-        .then(res => res.json())
-        .then(data => setPortfolios(data))
-        .catch(err => console.error(err));
-    }, []);
+        const fetchUsers = async () => {
+            try {
+                const res = await fetch("http://localhost:5001/portfolio/discover")
+                
+                const response = await response.json();
 
+                setPortfolios(response)
+            } catch (error) {
+                console.log("Error fetching data :( ")
+            }
+        }
+
+        fetchUsers();
+    }, []);
 
   return (
     <div>

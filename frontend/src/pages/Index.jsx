@@ -11,9 +11,7 @@ const Index = () => {
 
         <div>
             <h1>Discover</h1>
-            <!--Profile 1-->
-            <!--Profile 2-->
-            <!--Profile 3-->
+           
         </div>
 
         <ul>

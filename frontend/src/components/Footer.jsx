@@ -4,8 +4,8 @@ const Footer = () => {
   return (
     <div>
         <footer>
-        <nav class="bottom-nav">
-            <ul class="nav">
+        <nav className="bottom-nav">
+            <ul className="nav">
                 
                 <li><a href='#'>Back To Top</a></li>
                 <li>Copyright 2026</li>
