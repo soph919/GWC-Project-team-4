@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import Navigation from '../components/Navigation';
+import ProjectPreviewTempTwo from '../components/ProjectPreviewTempTwo';
+
 /*
 const [User, setUser] = useState(null);
 
@@ -67,72 +68,11 @@ const UserProfileTempTwo = () => {
         <h3 className='user-header-temp-2'>Projects</h3>
         <div className='project-list'>
             
-            <a href="/user-project">
-            <div className="preview-project">
-            <img src="images/blank_avatar.png" />
-            <div className="project-info">
-                <h3>Title</h3>
-                <p className="project-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            <div className="materials">
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                </ul>
-            </div>
-        </div>
-        </a>
-        <div className="preview-project">
-            <img src="images/blank_avatar.png" />
-            <div className="project-info">
-                <h3>Title</h3>
-                <p className="project-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            <div className="materials">
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                </ul>
-            </div>
-        </div>
-        <div className="preview-project"> 
-            <img src="images/blank_avatar.png" />
-            <div className="project-info">
-                <h3>Title</h3>
-                <p className="project-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            <div className="materials">
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                </ul>
-            </div> 
-        </div>
-        <div className="preview-project">
-            <img src="images/blank_avatar.png" />
-            <div className="project-info">
-                <h3>Title</h3>
-                <p className="project-description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-            </div>
-            <div className="materials">
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>JavaScript</li>
-                </ul>
-            </div>
-        </div>
+            <ProjectPreviewTempTwo />
+            <ProjectPreviewTempTwo />
+            <ProjectPreviewTempTwo />
+            <ProjectPreviewTempTwo />
+        
         </div>
 
     

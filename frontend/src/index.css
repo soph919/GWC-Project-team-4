@@ -300,6 +300,7 @@ nav a:hover {
 .project-header {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 0;
 }
 
 .project-header h3 a {
@@ -314,6 +315,16 @@ nav a:hover {
 .project-header h3 a:hover {
     background-color: #8b85d2;
     color: #cec9c9;
+}
+
+.project-content {
+    margin: 0px 50px 50px 50px;
+    padding-top: 50px;
+    background-color: #AC99FF;
+}
+
+.project-content p {
+    
 }
 
 /* Folder */
