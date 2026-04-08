@@ -1,16 +1,16 @@
 import React from 'react'
 
-const DiscoverUser = () => {
+const DiscoverUser = ({portfolio}) => {
   return (
         <div className="other-user">
                 <div className="title">
-                    <img src="images/blank_avatar.png" alt="avatar"/>
+                    <img src={portfolio?.image.secure_url} alt="avatar"/>
                     <div>
-                        <h3>Name Here</h3>
-                        <h4>Description</h4>
+                        <h3>{portfolio?.portfolio_name}</h3>
+                        <h4>{portfolio?.user_info.first_name} {portfolio?.user_info.last_name}</h4>
                     </div>
                 </div>
-            <p>Lorem impsum idk anymore anyway hire me</p>
+            <p>{portfolio?.description}</p>
             </div>
     
   )

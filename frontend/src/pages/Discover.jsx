@@ -13,7 +13,9 @@ const Discover = () => {
             try {
                 const res = await fetch("http://localhost:5001/portfolio/discover")
                 
-                const response = await response.json();
+                const response = await res.json();
+
+                
 
                 setPortfolios(response)
             } catch (error) {
@@ -41,7 +43,6 @@ const Discover = () => {
         {portfolios.length === 0 ? (
             <div>
             <h3>There are no portfolios at the moment. Check that you are connected to the internet</h3>
-        
              <div className="discover-users-list">
             
             <DiscoverUser />
@@ -60,7 +61,7 @@ const Discover = () => {
         ) : (
             portfolios.map((portfolio, index) =>
             <div key={index}>
-                <DiscoverUser />
+                <DiscoverUser portfolio={portfolio}/>
             </div>
             )
         )}

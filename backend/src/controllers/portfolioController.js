@@ -3,15 +3,16 @@ import Content from "../models/Portfolio_Content.js";
 import Project from "../models/Project.js";
 import cloudinary from "../lib/cloudinary.js";
 import mongoose from "mongoose";
+import User from "../models/User.js";
 
 //Add portfolio
 export async function addPortfolio(req, res) {
     try {
-        const { portfolio_name, template_type, visibility } = req.body;
+        const { portfolio_name, template_type, visibility, description } = req.body;
         const user_id = req.params.userId;
-        let image, uploadImage, newPortfolio = null;
-    
-        //Image given
+        let image, uploadImage = null;
+
+        //If image given
         if(req.file) {
 
             image = req.file.buffer
@@ -32,40 +33,35 @@ export async function addPortfolio(req, res) {
                 ).end(image)
             });
 
-            //portfolio with image
-            newPortfolio = await Portfolio.create({
-            user_id,
-            portfolio_name,
-            template_type,
-            visibility,
-            image:
-            {
-                public_id: uploadImage.public_id, 
-                secure_url:uploadImage.secure_url
-            }
-            });
 
-        } else {
-
-            //portfolio without image
-            newPortfolio = await Portfolio.create({
-            user_id,
-            portfolio_name,
-            template_type,
-            visibility,
-             image:
-            {
-                public_id: null, 
-                secure_url: null
-            }
-            
-            });
-        }
-        
-        if(newPortfolio) {
-            return res.status(201).json(newPortfolio);
         } 
-      
+
+        //Get user info
+        const user_info = await User.findById(user_id)
+       
+        //Create portfolio
+        const newPortfolio = await Portfolio.create({
+            user_info: 
+            {
+                user_id: user_info._id,
+                first_name: user_info.firstname,
+                last_name: user_info.lastname
+            },
+            portfolio_name,
+            template_type,
+            visibility,
+            description,
+                image:
+            {
+                public_id: uploadImage ? uploadImage.public_id : null, 
+                secure_url: uploadImage? uploadImage.secure_url : null
+            }
+        });
+    
+        if(!newPortfolio) return res.status(400).json({message:"Could Not Create Portfolio"})
+        
+        return res.status(201).json(newPortfolio);
+
     } catch (error) {
         console.error("Error in addPortfolio:", error);
         res.status(500).json({ message: "Internal Server Error" });

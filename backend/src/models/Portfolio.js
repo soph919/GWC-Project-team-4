@@ -2,10 +2,18 @@ import mongoose from "mongoose";
 
 
 const portfolioSchema = new mongoose.Schema({
-    user_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        required:true,
-        ref:'User'
+    user_info: {
+        user_id: {
+            type: mongoose.Schema.Types.ObjectId,
+            required:true,
+            ref:'User'
+        },
+        first_name:{
+            type:String
+        },
+        last_name:{
+            type:String
+        }
     },
     portfolio_name: {
         type:String,
@@ -19,6 +27,10 @@ const portfolioSchema = new mongoose.Schema({
         type:Boolean,
         default:true
     }, 
+    description: {
+         type:String,
+        required:true
+    },
     image: {
         public_id: {
             type:String,

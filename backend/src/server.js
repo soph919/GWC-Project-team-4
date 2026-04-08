@@ -11,9 +11,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5001;
 
-app.use(cors({
-  origin: 'http://localhost:5174'
-}));
+app.use(cors());
 
 //connnect to mongoDB 
 connectDB();
