@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
 import portfolioRoutes from "./routes/portfolioRoute.js";
 import accountRoutes from "./routes/accountRoutes.js";
 import { connectDB } from "./connect.js";
@@ -11,9 +12,11 @@ const app = express();
 
 const PORT = process.env.PORT || 5001;
 
-app.use(cors({
+app.use(cors());
+
+/*({
   origin: 'http://localhost:5174'
-}));
+}));*/
 
 //connnect to mongoDB 
 connectDB();
