@@ -10,6 +10,9 @@ const Discover = () => {
     const [portfolios, setPortfolios] = useState([]);
     const [filteredPortfolios, setFilteredPortfolios] = useState([]);
 
+    
+    
+
     useEffect(() => {
 
         const fetchUsers = async () => {
@@ -21,6 +24,7 @@ const Discover = () => {
                 console.log("DISCOVER RESPONSE:", response);
             setPortfolios(response);
             setFilteredPortfolios(response)
+            setUser(response);
             } catch (error) {
                 console.log("Error fetching data :( ")
             }
@@ -28,6 +32,8 @@ const Discover = () => {
 
         fetchUsers();
     }, []);
+
+    
 
   return (
     <div>

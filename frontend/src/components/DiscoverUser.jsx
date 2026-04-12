@@ -1,9 +1,11 @@
 import React from 'react'
 
 import blankAvatar from "../images/blank_avatar.png";
+import { Link } from 'react-router';
 
 const DiscoverUser = ({portfolio}) => {
   return (
+    <Link to={`/user/${portfolio.user_id._id}`}>
         <div className="other-user">
                 <div className="title">
                     <img src={blankAvatar} alt="avatar"/>
@@ -16,7 +18,8 @@ const DiscoverUser = ({portfolio}) => {
                 </div>
             <p>{portfolio?.portfolio_summary}</p>
             </div>
-    
+    </Link>
+
   )
 }
 
