@@ -9,12 +9,15 @@ const Discover = () => {
     const [portfolios, setPortfolios] = useState([]);
 
     useEffect(() => {
+
         const fetchUsers = async () => {
             try {
                 const res = await fetch("http://localhost:5001/portfolio/discover")
                 
                 const response = await res.json();
 
+                console.log("DISCOVER RESPONSE:", response);
+setPortfolios(response);
                 
 
                 setPortfolios(response)

@@ -4,14 +4,15 @@ import Project from "../models/Project.js";
 import cloudinary from "../lib/cloudinary.js";
 import mongoose from "mongoose";
 
+
 //Add portfolio
 export async function addPortfolio(req, res) {
     try {
-        const { portfolio_name, template_type, visibility } = req.body;
+        const { portfolio_name, template_type, visibility, description } = req.body;
         const user_id = req.params.userId;
-        let image, uploadImage, newPortfolio = null;
-    
-        //Image given
+        let image, uploadImage = null;
+
+        //If image given
         if(req.file) {
 
             image = req.file.buffer
@@ -32,40 +33,35 @@ export async function addPortfolio(req, res) {
                 ).end(image)
             });
 
-            //portfolio with image
-            newPortfolio = await Portfolio.create({
-            user_id,
-            portfolio_name,
-            template_type,
-            visibility,
-            image:
-            {
-                public_id: uploadImage.public_id, 
-                secure_url:uploadImage.secure_url
-            }
-            });
 
-        } else {
-
-            //portfolio without image
-            newPortfolio = await Portfolio.create({
-            user_id,
-            portfolio_name,
-            template_type,
-            visibility,
-             image:
-            {
-                public_id: null, 
-                secure_url: null
-            }
-            
-            });
-        }
-        
-        if(newPortfolio) {
-            return res.status(201).json(newPortfolio);
         } 
-      
+
+        //Get user info
+        const user_info = await User.findById(user_id)
+       
+        //Create portfolio
+        const newPortfolio = await Portfolio.create({
+            user_info: 
+            {
+                user_id: user_info._id,
+                first_name: user_info.firstname,
+                last_name: user_info.lastname
+            },
+            portfolio_name,
+            template_type,
+            visibility,
+            description,
+                image:
+            {
+                public_id: uploadImage ? uploadImage.public_id : null, 
+                secure_url: uploadImage? uploadImage.secure_url : null
+            }
+        });
+    
+        if(!newPortfolio) return res.status(400).json({message:"Could Not Create Portfolio"})
+        
+        return res.status(201).json(newPortfolio);
+
     } catch (error) {
         console.error("Error in addPortfolio:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -221,6 +217,8 @@ export async function getUserPortfolios(req, res) {
     try {
         const portfolios = await Portfolio.find({ user_id: new Portfolio.base.Types.ObjectId(req.params.userId) });
         res.status(200).json(portfolios);
+        
+        console.log("POPULATED PORTFOLIOS:", JSON.stringify(portfolios, null, 2));
     } catch (error) {
         console.error("Error in getUserPortfolios:", error);
         res.status(500).json({ message: "Internal Server Error" });
@@ -230,7 +228,11 @@ export async function getUserPortfolios(req, res) {
 //Get all public portfolios (discover page)
 export async function getAllPortfolios(req, res) {
     try {
-        const portfolios = await Portfolio.find({ visibility: true });
+        const portfolios = await Portfolio.find({ visibility: true })
+            .populate("user_id");
+
+        console.log("FIRST ITEM:", portfolios[0]);
+
         res.status(200).json(portfolios);
     } catch (error) {
         console.error("Error in getAllPortfolios:", error);
@@ -314,6 +316,100 @@ export async function getPortfolioProjects(req, res) {
         res.status(200).json(projects);
     } catch (error) {
         console.error("Error in getPortfolioProjects:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Search portfolios by name
+export async function searchPortfolios(req, res) {
+    try {
+        const { name } = req.query;
+
+        const portfolios = await Portfolio.find({ visibility: true })
+            .populate({ 
+                path: "user_id", 
+                match: { 
+                    $or: [
+                        { firstname: { $regex: name, $options: "i" } },
+                        { lastname: { $regex: name, $options: "i" } }
+                    ] 
+                }, 
+                select: "firstname lastname" 
+            });
+
+        const filtered = portfolios.filter(p => p.user_id !== null);
+        res.status(200).json(filtered);
+
+    } catch (error) {
+        console.error("Error in searchPortfolios:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Add skill
+export async function addSkill(req, res) {
+    try {
+        const { skill } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $push: { skills: skill } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in addSkill:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Delete skill
+export async function deleteSkill(req, res) {
+    try {
+        const { skill } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $pull: { skills: skill } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in deleteSkill:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Add program
+export async function addProgram(req, res) {
+    try {
+        const { program } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $push: { programs: program } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in addProgram:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+//Delete program
+export async function deleteProgram(req, res) {
+    try {
+        const { program } = req.body;
+        const content = await Content.findOneAndUpdate(
+            { portfolio_id: req.params.portfolioId },
+            { $pull: { programs: program } },
+            { new: true }
+        );
+        if (!content) return res.status(404).json({ message: "Portfolio content not found" });
+        res.status(200).json(content);
+    } catch (error) {
+        console.error("Error in deleteProgram:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
