@@ -3,8 +3,11 @@ import React from 'react'
 const Login = () => {
   return (
     <div>
-        <h1>Login</h1>
+        
+        <div className="login-page">
+            <h1>Login</h1>
             <div className='register-form'>
+            
             <form>
                 <div className='label-input'>
                     <label for="user">Username/Email:</label>
@@ -17,15 +20,16 @@ const Login = () => {
                 </div>
                 <input id="submit" type="submit" value="Login" />
             </form>
+            
 
             <div className='extra-register'>
             <a>Forgot password?</a>
-
-
             <a>Forgot email/username?</a>
-            <a href="signup.html">Don't have an account?</a>
+            <a href="/signup">Don't have an account?</a>
+            </div>
             </div>
 
+            
             </div>
         </div>
   )

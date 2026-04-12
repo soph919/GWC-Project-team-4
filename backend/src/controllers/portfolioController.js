@@ -232,6 +232,7 @@ export async function getAllPortfolios(req, res) {
             .populate("user_id");
 
         console.log("FIRST ITEM:", portfolios[0]);
+        console.log("SECOND ITEM:", portfolios[1]);
 
         res.status(200).json(portfolios);
     } catch (error) {

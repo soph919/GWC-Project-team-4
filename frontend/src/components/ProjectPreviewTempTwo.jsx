@@ -1,11 +1,12 @@
 import React from 'react'
+import placeholder from "../images/placeholder.png"
 
 const ProjectPreviewTempTwo = () => {
   return (
     <div>
         <a href="/user-project">
     <div className="preview-project"> 
-            <img src="images/blank_avatar.png" />
+            <img src={placeholder} />
             <div className="project-info">
                 <h3>Title</h3>
                 <p className="project-description">

@@ -7,12 +7,12 @@ const Navigation = () => {
             <ul className="nav">
                 <div className="nav-left">
                 <li>Image</li>
-                <li>Home</li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/discover">Discover</a></li>
                 <li><a href="/user">Portfolio</a></li>
                 </div>
                 <div className="nav-right">
-                <li>Help</li>
+                <li><a href="/templates">Templates</a></li>
                 <li>Settings</li>
                 </div>
             </ul>

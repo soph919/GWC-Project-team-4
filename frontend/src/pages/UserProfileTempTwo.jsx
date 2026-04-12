@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 
 import ProjectPreviewTempTwo from '../components/ProjectPreviewTempTwo';
 
+import blankAvatar from "../images/blank_avatar.png";
+
 /*
 const [User, setUser] = useState(null);
 
@@ -12,11 +14,14 @@ useEffect(() => {
 const UserProfileTempTwo = () => {
   return (
     <div>
-
+        <div className='user-top'>
+        <img src={blankAvatar} alt="profile picture" />
         <div className='user-title'>
+            
             <h1><b>Jane Doe</b></h1>
             <h2>Programmer - Digital Artist</h2>
             <h3>Digital Media Degree — University of Central Florida</h3>
+        </div>
         </div>
         <div className="about">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>

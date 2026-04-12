@@ -1,10 +1,12 @@
 import React from 'react'
 
+import blankAvatar from "../images/blank_avatar.png";
+
 const DiscoverUser = ({portfolio}) => {
   return (
         <div className="other-user">
                 <div className="title">
-                    <img src={portfolio?.image?.secure_url} alt="avatar"/>
+                    <img src={blankAvatar} alt="avatar"/>
                     <div>
                         <h3>{portfolio?.user_id?.firstname} {portfolio?.user_id?.lastname}</h3>
                         <h4>
@@ -12,7 +14,7 @@ const DiscoverUser = ({portfolio}) => {
                          </h4>
                     </div>
                 </div>
-            <p>{portfolio?.description}</p>
+            <p>{portfolio?.portfolio_summary}</p>
             </div>
     
   )

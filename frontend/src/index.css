@@ -6,7 +6,6 @@ body {
     background-color: #121052;
     color: #FFFFFF;
     margin: 0px;
-    white-space: pre-wrap;
     
 }
 
@@ -72,15 +71,17 @@ nav a:hover {
     justify-content: center;
     margin-left: 50px;
     margin-right: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .other-user {
     background-color: #CBC5E1;
     border-radius: 20px;
-    max-width: 290px;
+    width: 290px;
+    height: 120px;
     padding: 15px 20px 15px 20px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    
 }
 
 .title {
@@ -182,6 +183,7 @@ nav a:hover {
     flex-wrap: wrap;
     gap: 40px;
     margin: 60px;
+    justify-content: center;
 }
 .preview-project {
     width: 560px;
@@ -257,9 +259,19 @@ nav a:hover {
 
 
 /* ------- Template Two ------- */
-
-.user-title {
+.user-top {
+    display: flex;
+    flex-direction: row;
     margin: 60px;
+}
+
+.user-top img {
+    border-radius: 100px;
+    width: 200px;
+    height: 200px;
+}
+.user-title {
+    padding-left: 20px;
 }
 
 .user-title  h1{
@@ -361,46 +373,91 @@ nav a:hover {
 
 
 /* ------- Login ------- */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+   
+}
 
+.login-page h1 {
+    margin: 50px;
+}
 .register-form {
     background-color: #FFFFFF;
     color: #000000;
     text-align: center;
-    align-items: center;
-    margin: auto;
-    max-width: 866px;
-    padding: 100px 200px 50px 200px;
+    padding: 60px 80px;
+    margin: 50px;
 }
 
 .register-form > form {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .label-input {
     display: flex;
-    flex-direction: row;
-    gap: 60px;
-    padding: 25px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 15px, 0;
+    padding-bottom: 20px;
 }
 
 form input {
-    max-width: 312px;
+    width: 400px;
+    height: 30px;
     background-color: #D9D9D9;
     align-items: center;
+    font-family: 'Pixelify Sans', sans-serif;
 }
 
 .extra-register {
     color: #A0A0A0;
     font-size: 12px;
-    margin-left: -150px;
-    float: left;
+    
+   
+
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
 }
 
 #submit {
     background-color: #B3ACFA;
     box-shadow: #121052;
     font-family: 'Pixelify Sans', sans-serif;
+}
+
+/* ------- Template Picker ------- */
+.template-page {
+    margin: 50px;
+    text-align: center;
+}
+
+.template-page h1 {
+    font-size: 36px;
+    color: #F2D482;
+}
+
+.template-page p {
+    font-size: 20px;
+    color: #EFEBFF;
+}
+
+.template-picker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+}
+
+.template-picker img {
+    width: 600px;
+    height: 375px;
 }

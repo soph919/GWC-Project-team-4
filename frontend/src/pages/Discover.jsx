@@ -3,10 +3,12 @@ import { useEffect, useState } from "react";
 
 
 import DiscoverUser from '../components/DiscoverUser';
+import SearchBar from '../components/SearchBar';
 
 const Discover = () => {
 
     const [portfolios, setPortfolios] = useState([]);
+    const [filteredPortfolios, setFilteredPortfolios] = useState([]);
 
     useEffect(() => {
 
@@ -17,10 +19,8 @@ const Discover = () => {
                 const response = await res.json();
 
                 console.log("DISCOVER RESPONSE:", response);
-setPortfolios(response);
-                
-
-                setPortfolios(response)
+            setPortfolios(response);
+            setFilteredPortfolios(response)
             } catch (error) {
                 console.log("Error fetching data :( ")
             }
@@ -32,42 +32,27 @@ setPortfolios(response);
   return (
     <div>
     
-       <form className='search-bar'>
-        <input
-        type='text'
-        placeholder='Find A Programmer'
-        className='search-input'
-        //value=import eaach item here
-        //onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        
-       </form>
+       <SearchBar 
+       portfolios={portfolios}
+       onFilter={setFilteredPortfolios}/>
        
+       <div className="discover-users-list">
         {portfolios.length === 0 ? (
             <div>
             <h3>There are no portfolios at the moment. Check that you are connected to the internet</h3>
-             <div className="discover-users-list">
-            
-            <DiscoverUser />
-            <DiscoverUser />
-            <DiscoverUser />
-            <DiscoverUser />
-            <DiscoverUser />
-            <DiscoverUser />
-            <DiscoverUser />
-            <DiscoverUser />
-            <DiscoverUser />
+  
 
-            </div>
             </div>
             
         ) : (
-            portfolios.map((portfolio, index) =>
+            
+            filteredPortfolios.map((portfolio, index) =>
             <div key={index}>
                 <DiscoverUser portfolio={portfolio}/>
             </div>
             )
         )}
+        </div>
         
 
         </div>

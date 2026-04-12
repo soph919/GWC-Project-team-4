@@ -1,12 +1,18 @@
 import React from 'react'
 
+import templateB from "../images/templateB.png";
+
 const Templates = () => {
   return (
     <div>
+      <div className='template-page'>
         <h1>Welcome to DevelopHers!</h1>
-    <p>To get started, choose a template</p>
-    <p><a href="template-1/portfoliohome-1.html"><img src="" width="400" height="250" /></a></p>
-    <p><a href="template-2/portfoliohome-2.html"><img src="" width="400" height="250" /></a></p>
+      <p>To get started, choose a template</p>
+      <div className='template-picker'>
+        <p><a href=""><img src=""  alt='Preview of Template A'/></a></p>
+        <p><a href=""><img src={templateB}  alt='Preview of Template B'/></a></p>
+      </div>
+    </div>
     </div>
   )
 }
