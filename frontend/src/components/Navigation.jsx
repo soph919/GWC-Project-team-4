@@ -1,4 +1,5 @@
 import React from 'react'
+import blankAvatar from "../images/blank_avatar.png";
 
 const Navigation = () => {
   return (
@@ -6,7 +7,7 @@ const Navigation = () => {
         <nav className="top-nav">
             <ul className="nav">
                 <div className="nav-left">
-                <li>Image</li>
+                <li><img id="nav-profile" src={blankAvatar} alt='Profile Picture' /></li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/discover">Discover</a></li>
                 <li><a href="/user">Portfolio</a></li>

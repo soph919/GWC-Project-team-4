@@ -10,7 +10,7 @@ const Help = () => {
             <label for="email">Email:</label>
         <input type="text" id="email" name="email" />
 
-        <label for="issue">What's wrong?</label>
+        <label for="issue">What is wrong?</label>
         <input type="text" id="issue" user="issue" />
         <input type="submit" value="Submit" />
         </form>
