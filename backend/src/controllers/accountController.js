@@ -5,7 +5,6 @@ import User from "../models/User.js"
 export async function register (req, res) {
     try {
         const {firstname, lastname, email, password} = req.body;
-
         //Comfirms data
         if(!firstname || !lastname || !email || !password) {
             return res.status(400).json({message:"All fields required"});
@@ -52,7 +51,10 @@ export async function register (req, res) {
 export async function login (req, res) {
     try {
         const { email, password } = req.body
-        
+
+        //null fields
+        if(!email || !password) return res.status(400).json({message:"All fields are required"})
+
         //Find user
         const user = await User.findOne().where("email").equals(email);
         
@@ -63,7 +65,7 @@ export async function login (req, res) {
             return res.status(400).json({message:"Invalid email or password"});
         }
         
-        res.status(200).json({message:"Login successful"});
+        res.status(200).json({user:user,message:"Login successful"});
 
     } catch (error) {
         console.error("Error in login:", error)

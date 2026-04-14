@@ -4,8 +4,8 @@ import { Route, Routes} from "react-router";
 import Discover from "./pages/Discover"
 import UserProfileTempTwo from './pages/UserProfileTempTwo'
 import UserProjectTempTwo from './pages/UserProjectTempTwo';
-import Index from './pages';
-import Login from './pages/login';
+import Index from './pages/Index';
+import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Settings from './pages/Settings';
 import Templates from './pages/Templates';
