@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import blankAvatar from "../images/blank_avatar.png";
+import { useParams } from 'react-router';
 
 function openProject(id){
   document.getElementById("overlay").style.display = "block";
@@ -25,25 +26,44 @@ function closeProject(){
 
 function switchTab(event, tabId){
 
-  // find the current popup (so multiple modals won’t conflict later)
-  const popup = event.target.closest(".popup");
+  const popup = event.currentTarget.closest(".popup");
 
-  // remove active from all tabs
   const tabs = popup.querySelectorAll(".tab1");
   tabs.forEach(tab => tab.classList.remove("active"));
 
-  // hide all content
   const contents = popup.querySelectorAll(".tab-content1");
   contents.forEach(c => c.classList.remove("active"));
 
-  // activate clicked tab
-  event.target.classList.add("active");
+  event.currentTarget.classList.add("active");
 
-  // show correct content
   popup.querySelector("#" + tabId).classList.add("active");
 }
 
 const UserProfileTempOne = () => {
+  const { id } = useParams();
+     const [user, setUser] = useState(null);
+   
+     useEffect(() => {
+       const fetchPortfolios = async () => {
+         try {
+           const res = await fetch("http://localhost:5001/portfolio/discover");
+           const data = await res.json();
+   
+           const foundPortfolio = data.find(
+             (p) => p.user_id._id === id
+           );
+   
+           if (foundPortfolio) {
+             setUser(foundPortfolio);
+           }
+         } catch (error) {
+           console.log("Error fetching data");
+         }
+       };
+   
+       fetchPortfolios();
+     }, [id]);
+
   return (
     <div className="UserTemp1">
 
@@ -58,7 +78,7 @@ const UserProfileTempOne = () => {
 
     <h3 className="sub-t">Welcome to My Portfolio!</h3>
     <div id="introduction">
-        <p>Im Jane Doe,</p>
+        <p>I'm {user?.user_id?.firstname} {user?.user_id?.lastname},</p>
         <p>a developer and designer</p>
     </div>
 

@@ -3,24 +3,45 @@ import React, { useEffect, useState } from 'react'
 import ProjectPreviewTempTwo from '../components/ProjectPreviewTempTwo';
 
 import blankAvatar from "../images/blank_avatar.png";
+import { useParams } from 'react-router';
 
-/*
-const [User, setUser] = useState(null);
+ 
 
-useEffect(() => {
-    fetch("")
-})
-    */
 const UserProfileTempTwo = () => {
+ const { id } = useParams();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchPortfolios = async () => {
+      try {
+        const res = await fetch("http://localhost:5001/portfolio/discover");
+        const data = await res.json();
+
+        const foundPortfolio = data.find(
+          (p) => p.user_id._id === id
+        );
+
+        if (foundPortfolio) {
+          setUser(foundPortfolio);
+        }
+      } catch (error) {
+        console.log("Error fetching data");
+      }
+    };
+
+    fetchPortfolios();
+  }, [id]);
+
   return (
+    
     <div>
         <div className='user-top'>
         <img src={blankAvatar} alt="profile picture" />
         <div className='user-title'>
             
-            <h1><b>Jane Doe</b></h1>
-            <h2>Programmer - Digital Artist</h2>
-            <h3>Digital Media Degree — University of Central Florida</h3>
+            <h1><b>{user?.user_id?.firstname} {user?.user_id?.lastname}</b></h1>
+            <h2>{user?.portfolio_name}</h2>
+            <h3>{user?.portfolio_summary}</h3>
         </div>
         </div>
         <div className="about">

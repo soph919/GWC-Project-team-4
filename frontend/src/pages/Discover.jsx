@@ -24,7 +24,7 @@ const Discover = () => {
                 console.log("DISCOVER RESPONSE:", response);
             setPortfolios(response);
             setFilteredPortfolios(response)
-            setUser(response);
+    
             } catch (error) {
                 console.log("Error fetching data :( ")
             }
