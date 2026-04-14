@@ -64,9 +64,9 @@ const UserProfileTempOne = () => {
         <div id="project-folders">
         <h5 className="smaller-sub-t">Projects</h5>
             <ul>
-                <li id="project-1" className="folder"><a href="#" onClick={openProject('modal1')} >Project 1</a></li>
-                <li id="project-2" className="folder"><a href="#" onClick={openProject('modal2')}>Project 2</a></li>
-                <li id="project-3" className="folder"><a href="#" onClick={openProject('modal3')}>Project 3</a></li>
+                <li id="project-1" className="folder"><a href="#" onClick={() => openProject('modal1')}>Project 1</a></li>
+                <li id="project-2" className="folder"><a href="#" onClick={() => openProject('modal2')}>Project 2</a></li>
+                <li id="project-3" className="folder"><a href="#" onClick={() => openProject('modal3')}>Project 3</a></li>
             </ul>
         </div>
 
@@ -148,13 +148,13 @@ const UserProfileTempOne = () => {
 
 
     <div className="tabs1">
-      <div className="tab1 active" onClick={switchTab(event, 'overview1')}>Overview</div>
-      <div className="tab1" onClick={switchTab(event, 'process1')}>Process</div>
-      <div className="tab1" onClick={switchTab(event, 'solution1')}>Solution</div>
-      <div className="tab1" onClick={switchTab(event, 'impact1')}>Impact</div>
+      <div className="tab1 active" onClick={(e) => switchTab(e, 'overview1')}>Overview</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'process1')}>Process</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'solution2')}>Solution</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'impact1')}>Impact</div>
     </div>
 
-    <span className="close" onClick={closeProject()}>✕</span>
+    <span className="close" onClick={closeProject}>✕</span>
 
 
     <div className="tab-content1 active" id="overview1">
@@ -185,14 +185,14 @@ const UserProfileTempOne = () => {
   <div className="popup">
 
 
-    <div className="tabs1">
-      <div className="tab1 active" onClick={switchTab(event, 'overview2')}>Overview</div>
-      <div className="tab1" onClick={switchTab(event, 'process2')}>Process</div>
-      <div className="tab1" onClick={switchTab(event, 'solution2')}>Solution</div>
-      <div className="tab1" onClick={switchTab(event, 'impact2')}>Impact</div>
+    <div className="tabs2">
+      <div className="tab2 active" onClick={(e) => switchTab(e, 'overview2')}>Overview</div>
+      <div className="tab2" onClick={(e) => switchTab(e, 'process2')}>Process</div>
+      <div className="tab2" onClick={(e) => switchTab(e, 'solution2')}>Solution</div>
+      <div className="tab2" onClick={(e) => switchTab(e, 'impact2')}>Impact</div>
     </div>
 
-    <span className="close" onClick={closeProject()}>✕</span>
+    <span className="close" onClick={closeProject}>✕</span>
 
 
     <div className="tab-content1 active" id="overview2">
@@ -223,14 +223,14 @@ const UserProfileTempOne = () => {
   <div className="popup">
 
 
-    <div className="tabs1">
-      <div className="tab1 active" onClick={switchTab(event, 'overview3')}>Overview</div>
-      <div className="tab1" onClick={switchTab(event, 'process3')}>Process</div>
-      <div className="tab1" onClick={switchTab(event, 'solution3')}>Solution</div>
-      <div className="tab1" onClick={switchTab(event, 'impact3')}>Impact</div>
+    <div className="tabs3">
+      <div className="tab3 active" onClick={(e) => switchTab(e, 'overview3')}>Overview</div>
+      <div className="tab3" onClick={(e) => switchTab(e, 'process3')}>Process</div>
+      <div className="tab3" onClick={(e) => switchTab(e, 'solution3')}>Solution</div>
+      <div className="tab3" onClick={(e) => switchTab(e, 'impact3')}>Impact</div>
     </div>
 
-    <span className="close" onClick={closeProject()}>✕</span>
+    <span className="close" onClick={closeProject}>✕</span>
 
 
     <div className="tab-content1 active" id="overview3">
