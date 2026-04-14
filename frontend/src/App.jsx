@@ -26,7 +26,7 @@ const App = () => {
         <Route path="/" element={<Index />} />
         <Route path="/discover" element={<Discover />} />
         <Route path="/user-profile-b" element={<UserProfileTempTwo />} />
-        <Route path="/user-project" element={<UserProjectTempTwo />} />
+        <Route path="/user-project-b" element={<UserProjectTempTwo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/settings" element={<Settings />} />

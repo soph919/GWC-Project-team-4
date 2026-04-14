@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import UserProfileTempOne from './UserProfileTempOne';
 import UserProfileTempTwo from './UserProfileTempTwo';
 import { useParams } from 'react-router';
 
