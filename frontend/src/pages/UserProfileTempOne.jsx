@@ -52,7 +52,7 @@ const UserProfileTempOne = () => {
         <button id="edit">Edit</button> 
     </div>
    
-    <div id="overlay" onClick="closeProject()"></div>
+    <div id="overlay" onClick={closeProject}></div>
 
 
     <h3 className="sub-t">Welcome to My Portfolio!</h3>
@@ -150,7 +150,7 @@ const UserProfileTempOne = () => {
     <div className="tabs1">
       <div className="tab1 active" onClick={(e) => switchTab(e, 'overview1')}>Overview</div>
       <div className="tab1" onClick={(e) => switchTab(e, 'process1')}>Process</div>
-      <div className="tab1" onClick={(e) => switchTab(e, 'solution2')}>Solution</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'solution1')}>Solution</div>
       <div className="tab1" onClick={(e) => switchTab(e, 'impact1')}>Impact</div>
     </div>
 
@@ -185,11 +185,11 @@ const UserProfileTempOne = () => {
   <div className="popup">
 
 
-    <div className="tabs2">
-      <div className="tab2 active" onClick={(e) => switchTab(e, 'overview2')}>Overview</div>
-      <div className="tab2" onClick={(e) => switchTab(e, 'process2')}>Process</div>
-      <div className="tab2" onClick={(e) => switchTab(e, 'solution2')}>Solution</div>
-      <div className="tab2" onClick={(e) => switchTab(e, 'impact2')}>Impact</div>
+    <div className="tabs1">
+      <div className="tab1 active" onClick={(e) => switchTab(e, 'overview2')}>Overview</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'process2')}>Process</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'solution2')}>Solution</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'impact2')}>Impact</div>
     </div>
 
     <span className="close" onClick={closeProject}>✕</span>
@@ -223,11 +223,11 @@ const UserProfileTempOne = () => {
   <div className="popup">
 
 
-    <div className="tabs3">
-      <div className="tab3 active" onClick={(e) => switchTab(e, 'overview3')}>Overview</div>
-      <div className="tab3" onClick={(e) => switchTab(e, 'process3')}>Process</div>
-      <div className="tab3" onClick={(e) => switchTab(e, 'solution3')}>Solution</div>
-      <div className="tab3" onClick={(e) => switchTab(e, 'impact3')}>Impact</div>
+    <div className="tabs1">
+      <div className="tab1 active" onClick={(e) => switchTab(e, 'overview3')}>Overview</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'process3')}>Process</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'solution3')}>Solution</div>
+      <div className="tab1" onClick={(e) => switchTab(e, 'impact3')}>Impact</div>
     </div>
 
     <span className="close" onClick={closeProject}>✕</span>
