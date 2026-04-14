@@ -43,6 +43,7 @@ body {
     width: 30px;
     height: 30px;
     text-align: center;
+    margin-top: -5px;
 }
 
 .nav-left, .nav-right {
@@ -94,6 +95,7 @@ nav a:hover {
     margin-top: 30px;
     margin-bottom: 30px;
     text-decoration: none;
+    
 }
 
 .other-user {
@@ -102,7 +104,7 @@ nav a:hover {
     width: 290px;
     height: 120px;
     padding: 15px 20px 15px 20px;
-    
+    list-style-type: none;
 }
 
 .title {
