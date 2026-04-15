@@ -562,6 +562,18 @@ form input {
 
 }
 
+#t1-pfp-img{
+    position: absolute;
+    top:50px;
+    left:80px;
+    max-width: 90px;
+    max-height: 90px;
+    border-radius:90px;
+    border: #121052;
+    border-width: 4px;
+    border-style:solid;
+}
+
         button{
             margin-left: auto;
             margin-right:30px ;
@@ -680,12 +692,12 @@ form input {
 }
 
 /* hide all content by default */
-.tab1-content{
+.tab-content1{
   display: none;
 }
 
 /* show active one */
-.tab1-content.active{
+.tab-content1.active{
   display: block;
 }
 

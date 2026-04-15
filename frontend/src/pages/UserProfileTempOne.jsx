@@ -50,6 +50,7 @@ const UserProfileTempOne = () => {
 
     <div id="banner">
         <button id="edit">Edit</button> 
+          <img src={blankAvatar} id="t1-pfp-img"/>
     </div>
    
     <div id="overlay" onClick={closeProject}></div>
