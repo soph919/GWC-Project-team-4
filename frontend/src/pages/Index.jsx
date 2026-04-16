@@ -60,8 +60,8 @@ const Index = () => {
         </div>
 
         <ul id="index-ul">
-            <li className="index-li"><a href="login.html" className="index-a">Log In</a></li>
-            <li className="index-li"><a href="signup.html" className="index-a">Sign Up</a></li>
+            <li className="index-li"><a href="/login" className="index-a">Log In</a></li>
+            <li className="index-li"><a href="/signup" className="index-a">Sign Up</a></li>
         </ul>
         
     </div>

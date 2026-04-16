@@ -3,13 +3,21 @@ import React, { useEffect, useState } from 'react'
 import ProjectPreviewTempTwo from '../components/ProjectPreviewTempTwo';
 
 import blankAvatar from "../images/blank_avatar.png";
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
  
 
 const UserProfileTempTwo = () => {
  const { id } = useParams();
   const [user, setUser] = useState(null);
+
+const navigate = useNavigate();
+  
+
+  const [templateType, setTemplateType] = useState("");
+  const loggedUser = localStorage.getItem("loggedUser");
+
+    const owner = loggedUser === id;
 
   useEffect(() => {
     const fetchPortfolios = async () => {
@@ -23,6 +31,7 @@ const UserProfileTempTwo = () => {
 
         if (foundPortfolio) {
           setUser(foundPortfolio);
+          setTemplateType(foundPortfolio.template_type)
         }
       } catch (error) {
         console.log("Error fetching data");
@@ -43,6 +52,7 @@ const UserProfileTempTwo = () => {
             <h2>{user?.portfolio_name}</h2>
             <h3>{user?.portfolio_summary}</h3>
         </div>
+         {owner && <button id="edit" onClick={() => navigate(`/templates/${user._id}`)}>Edit</button> }
         </div>
         <div className="about">
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>

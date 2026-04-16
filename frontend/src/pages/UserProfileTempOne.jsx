@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import blankAvatar from "../images/blank_avatar.png";
-import { useParams } from 'react-router';
+import { useParams, useNavigate } from 'react-router';
 
 function openProject(id){
   document.getElementById("overlay").style.display = "block";
@@ -41,8 +41,16 @@ function switchTab(event, tabId){
 
 const UserProfileTempOne = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  
+
+  const [templateType, setTemplateType] = useState("");
+
      const [user, setUser] = useState(null);
-   
+  
+     const loggedUser = localStorage.getItem("loggedUser");
+
+     const owner = loggedUser === id;
      useEffect(() => {
        const fetchPortfolios = async () => {
          try {
@@ -52,30 +60,40 @@ const UserProfileTempOne = () => {
            const foundPortfolio = data.find(
              (p) => p.user_id._id === id
            );
+
+         
    
            if (foundPortfolio) {
              setUser(foundPortfolio);
+             setTemplateType(foundPortfolio.template_type)
            }
+
+          
+
          } catch (error) {
            console.log("Error fetching data");
          }
+
        };
    
        fetchPortfolios();
      }, [id]);
+    
 
+    
+     
   return (
     <div className="UserTemp1">
 
 
     <div id="banner">
-        <button id="edit">Edit</button> 
+        {owner && <button id="edit" onClick={() => navigate(`/templates/${user._id}`)}>Edit</button> }
           <img src={blankAvatar} id="t1-pfp-img"/>
     </div>
    
     <div id="overlay" onClick={closeProject}></div>
 
-
+    
     <h3 className="sub-t">Welcome to My Portfolio!</h3>
     <div id="introduction">
         <p>I'm {user?.user_id?.firstname} {user?.user_id?.lastname},</p>

@@ -144,11 +144,11 @@ export async function updatePortfolio(req, res) {
             { returnDocument: 'after' }
         );
 
-        if (!updatePortfolio) return res.status(404).json({ message: "Portfolio not found" });
+        if (!updatedPortfolio) return res.status(404).json({ message: "Portfolio not found" });
         res.status(200).json(updatedPortfolio);
 
     } catch (error) {
-        console.error("Error in updatePortfolio:", error);
+        console.error("Error in updatedPortfolio:", error);
         res.status(500).json({ message: "Internal Server Error" });
     }
 }
@@ -214,16 +214,21 @@ export async function deletePortfolio(req, res) {
 
 //Get a user's portfolios
 export async function getUserPortfolios(req, res) {
-    try {
-        const portfolios = await Portfolio.find({ user_id: new Portfolio.base.Types.ObjectId(req.params.userId) });
-        res.status(200).json(portfolios);
-        
-        console.log("POPULATED PORTFOLIOS:", JSON.stringify(portfolios, null, 2));
-    } catch (error) {
-        console.error("Error in getUserPortfolios:", error);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
+  try {
+    const portfolios = await Portfolio.find({
+      "user_info.user_id": req.params.userId
+    });
+
+    console.log("POPULATED PORTFOLIOS:", portfolios);
+
+    res.status(200).json(portfolios);
+  } catch (error) {
+    console.error("Error in getUserPortfolios:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 }
+
+
 
 //Get all public portfolios (discover page)
 export async function getAllPortfolios(req, res) {
